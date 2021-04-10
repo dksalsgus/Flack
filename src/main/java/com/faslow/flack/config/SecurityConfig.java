@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**")
                 .permitAll();
 
-        http.authorizeRequests()//보호된 리소스 URI에 접근할 수 있는 권한을 설정
+        http.authorizeRequests()//보호된 리소스 URI에 접근할 수 K있는 권한을 설정
                 .antMatchers("/**")
                 .permitAll() //전체 접근 허용
                 .antMatchers("/logout/**")
