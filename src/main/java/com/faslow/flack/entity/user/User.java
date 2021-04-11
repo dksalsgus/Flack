@@ -2,14 +2,14 @@ package com.faslow.flack.entity.user;
 
 import com.faslow.flack.entity.BaseTimeEntity;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@AllArgsConstructor
 public class User extends BaseTimeEntity {
 
     // 회원번호
@@ -28,5 +28,18 @@ public class User extends BaseTimeEntity {
 
     // 휴대폰번호
     private String userPhone;
+
+    // 권한
+    private String role;
+
+
+    @Builder
+    public User(Long userNo, String userEmail, String userPw, String userPhone, String role){
+        this.userNo = userNo;
+        this.userEmail = userEmail;
+        this.userPw = userPw;
+        this.userPhone = userPhone;
+        this.role = role;
+    }
 
 }
