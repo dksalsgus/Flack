@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -27,6 +24,11 @@ public class Group extends BaseTimeEntity {
     private Integer channelNo;
 
     @ApiModelProperty(value = "그룹 권한")
+    @Enumerated(EnumType.STRING)
     private String groupRole;
 
+    public enum enGroupRole {
+        Owner,
+        Member
+    }
 }
