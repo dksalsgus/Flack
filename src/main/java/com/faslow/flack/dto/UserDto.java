@@ -1,13 +1,12 @@
 package com.faslow.flack.dto;
 
 import com.faslow.flack.entity.user.User;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class UserDto {
 
