@@ -29,8 +29,6 @@ public class User extends BaseTimeEntity {
     // 휴대폰번호
     private String userPhone;
 
-
-
     @Builder
     public User(Long userNo, String userEmail, String userPw, String userPhone){
         this.userNo = userNo;
