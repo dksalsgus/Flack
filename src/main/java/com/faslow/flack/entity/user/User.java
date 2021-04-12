@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 //@AllArgsConstructor
 public class User extends BaseTimeEntity {
 
@@ -29,17 +29,14 @@ public class User extends BaseTimeEntity {
     // 휴대폰번호
     private String userPhone;
 
-    // 권한
-    private String role;
 
 
     @Builder
-    public User(Long userNo, String userEmail, String userPw, String userPhone, String role){
+    public User(Long userNo, String userEmail, String userPw, String userPhone){
         this.userNo = userNo;
         this.userEmail = userEmail;
         this.userPw = userPw;
         this.userPhone = userPhone;
-        this.role = role;
     }
 
 }
