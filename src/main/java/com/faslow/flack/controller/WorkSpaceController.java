@@ -1,6 +1,6 @@
 package com.faslow.flack.controller;
 
-import com.faslow.flack.service.GroupService;
+import com.faslow.flack.service.WorkSpaceService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "그룹 컨트롤러")
-public class GroupController {
+public class WorkSpaceController {
 
-    private final GroupService groupService;
+    private final WorkSpaceService workSpaceService;
 }

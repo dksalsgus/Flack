@@ -1,13 +1,13 @@
 package com.faslow.flack.service;
 
-import com.faslow.flack.repository.GroupRepository;
+import com.faslow.flack.repository.WorkSpaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GroupService {
+public class WorkSpaceService {
 
-    private final GroupRepository groupRepository;
+    private final WorkSpaceRepository workSpaceRepository;
 
 }
