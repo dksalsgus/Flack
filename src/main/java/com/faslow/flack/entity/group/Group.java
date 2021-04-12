@@ -28,7 +28,7 @@ public class Group extends BaseTimeEntity {
     private String groupRole;
 
     public enum enGroupRole {
-        Owner,
-        Member
+        OWNER,
+        MEMBER
     }
 }
