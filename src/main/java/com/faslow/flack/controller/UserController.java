@@ -15,7 +15,6 @@ public class UserController {
     // 회원가입
     @PostMapping("/join")
     public String createUser(UserDto userDto){
-        userDto.setRole("ROLE_USER");
         userService.join(userDto);
         return "redirect:/";
     }
