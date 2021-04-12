@@ -17,10 +17,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void join(UserDto userDto){
+    public User join(UserDto userDto){
         User user = userDto.toEntity();
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         userRepository.save(user);
+       return new User(user.getUserEmail(),user.getUserPw(),user.getUserPhone());
     }
-
 }
