@@ -2,13 +2,12 @@ package com.faslow.flack;
 
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.repository.UserRepository;
+import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@DataJpaTest
 public class UserServiceTest {
 
     @Autowired
@@ -16,14 +15,11 @@ public class UserServiceTest {
 
     @Test
     public void join(){
-
-        User user = User.builder()
-                .userEmail("email")
-                .userPw("userpw")
+        userRepository.save(User.builder()
+                .userEmail("email test")
+                .userPw("pw test")
                 .userPhone("010-0000-0000")
-                .build();
-
-        userRepository.save(user);
+                .build());
 
         }
 }
