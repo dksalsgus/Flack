@@ -18,9 +18,6 @@ public class UserService {
 
     @Transactional
     public void join(UserDto userDto){
-        if (userRepository.findByuserEmail(userDto.getUserEmail()).orElse(null) != null) {
-            throw new RuntimeException("가입된 회원입니다.");
-        }
         User user = userDto.toEntity();
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         userRepository.save(user);
