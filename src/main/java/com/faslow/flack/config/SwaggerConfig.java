@@ -28,7 +28,7 @@ public class SwaggerConfig {
                 .apiInfo(this.apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.faslow.flack.controller"))
-                .paths(PathSelectors.ant("/"))
+                .paths(PathSelectors.any())
                 .build();
     }
 }
