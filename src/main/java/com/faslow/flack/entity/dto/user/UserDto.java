@@ -1,4 +1,4 @@
-package com.faslow.flack.dto;
+package com.faslow.flack.entity.dto.user;
 
 import com.faslow.flack.entity.user.User;
 import lombok.Builder;
