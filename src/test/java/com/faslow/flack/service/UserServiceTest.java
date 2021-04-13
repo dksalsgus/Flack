@@ -1,7 +1,9 @@
 package com.faslow.flack.service;
 
 import com.faslow.flack.entity.dto.user.UserDto;
+import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +53,21 @@ class UserServiceTest {
         log.info("saved userEmail : {}", saveUser.getUserEmail());
         log.info("saved userPw : {}", saveUser.getUserPw());
         log.info("saved userPhone : {}", saveUser.getUserPhone());
+    }
+
+    @Test
+    @Order(2)
+    public void 회원정보_수정() throws NotFoundException {
+        UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
+        userUpdateRequest.setUserPw("updatePw");
+        userUpdateRequest.setUserPhone("updatePhone");
+        User updateUser = userService.update(1L, userUpdateRequest);
+        assertThat(updateUser.getUserNo()).isEqualTo(1L);
+        assertThat(updateUser.getUserPw()).isEqualTo(userUpdateRequest.getUserPw());
+        assertThat(updateUser.getUserPhone()).isNotEqualTo(this.userPhone);
+
+        log.info("update UserNo : {}", updateUser.getUserNo());
+        log.info("update UserPw : {}", updateUser.getUserPw());
+        log.info("update UserPhone : {}", updateUser.getUserPhone());
     }
 }
