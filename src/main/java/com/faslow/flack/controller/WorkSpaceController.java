@@ -1,7 +1,8 @@
 package com.faslow.flack.controller;
 
+import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
+import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateResponse;
 import com.faslow.flack.entity.workspace.WorkSpace;
-import com.faslow.flack.entity.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.service.WorkSpaceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,8 +21,8 @@ public class WorkSpaceController {
 
     @ApiOperation(value = "워크 스페이스 생성")
     @PostMapping("workspace")
-    public ResponseEntity<String> createWorkSpace(@RequestBody WorkSpaceCreateRequest workSpaceCreateRequest) {
+    public ResponseEntity<WorkSpaceCreateResponse> createWorkSpace(@RequestBody WorkSpaceCreateRequest workSpaceCreateRequest) {
         WorkSpace saveWorkSpace = workSpaceService.createWorkSpace(workSpaceCreateRequest);
-        return ResponseEntity.ok(saveWorkSpace.getWorkspaceName());
+        return ResponseEntity.ok(new WorkSpaceCreateResponse(saveWorkSpace));
     }
 }
