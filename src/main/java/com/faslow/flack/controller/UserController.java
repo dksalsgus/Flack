@@ -17,8 +17,8 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/join")
-    public ResponseEntity<User> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
         User saveUser = userService.join(userDto);
-        return ResponseEntity.ok(saveUser);
+        return ResponseEntity.ok(new UserDto(saveUser));
     }
 }
