@@ -23,11 +23,11 @@ public class WorkSpaceCreateRequest {
     private WorkSpace.enWorkSpaceRole workspaceRole;
 
     // 생성날짜
-    @ApiModelProperty(value = "워크스페이스 권한")
+    @ApiModelProperty(value = "워크스페이스 생성날짜")
     private LocalDateTime createAt;
 
     // 수정날짜
-    @ApiModelProperty(value = "워크스페이스 권한")
+    @ApiModelProperty(value = "워크스페이스 수정날짜")
     private LocalDateTime updateAt;
 
 }
