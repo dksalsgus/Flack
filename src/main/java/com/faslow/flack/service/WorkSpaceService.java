@@ -1,7 +1,7 @@
 package com.faslow.flack.service;
 
+import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.entity.workspace.WorkSpace;
-import com.faslow.flack.entity.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.repository.WorkSpaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
