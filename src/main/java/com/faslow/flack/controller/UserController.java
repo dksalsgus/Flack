@@ -1,6 +1,6 @@
 package com.faslow.flack.controller;
 
-import com.faslow.flack.dto.UserDto;
+import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.service.UserService;
 import lombok.RequiredArgsConstructor;
