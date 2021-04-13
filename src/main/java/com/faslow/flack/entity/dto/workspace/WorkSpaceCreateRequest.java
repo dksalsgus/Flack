@@ -1,8 +1,12 @@
-package com.faslow.flack.entity.workspace;
+package com.faslow.flack.entity.dto.workspace;
 
+import com.faslow.flack.entity.workspace.WorkSpace;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
+@Setter
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,5 +21,13 @@ public class WorkSpaceCreateRequest {
 
     @ApiModelProperty(value = "워크스페이스 권한")
     private WorkSpace.enWorkSpaceRole workspaceRole;
+
+    // 생성날짜
+    @ApiModelProperty(value = "워크스페이스 권한")
+    private LocalDateTime createAt;
+
+    // 수정날짜
+    @ApiModelProperty(value = "워크스페이스 권한")
+    private LocalDateTime updateAt;
 
 }
