@@ -1,8 +1,7 @@
-package com.faslow.flack;
+package com.faslow.flack.service;
 
-import com.faslow.flack.dto.UserDto;
+import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.user.User;
-import com.faslow.flack.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
