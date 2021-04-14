@@ -11,6 +11,14 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+        http.formLogin()
+                .usernameParameter("userEmail")
+                .passwordParameter("userPw")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
+                .permitAll();
+
+        http.cors();
 
 @Configuration
 @EnableWebSecurity
@@ -27,15 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.authorizeRequests()//보호된 리소스 URI에 접근할 수 K있는 권한을 설정
-                .antMatchers("/**")
-                .permitAll() //전체 접근 허용
-                .antMatchers("/logout/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/workspace/**").authenticated()
+                .antMatchers("/user/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout");
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
 
         http.cors();
 //        http.authorizeRequests()
