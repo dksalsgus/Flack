@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")             // mapping path 설정
                 .allowedOrigins("http://localhost:8080") // 리소스 공유 허용할 origin 설정
-                .allowedMethods("GET","POST");           // 허용할 HTTP method 지정
+                .allowedMethods("*");           // 허용할 HTTP method 지정
     }
 
 }
