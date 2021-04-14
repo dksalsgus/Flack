@@ -52,4 +52,8 @@ class UserServiceTest {
         log.info("saved userPw : {}", saveUser.getUserPw());
         log.info("saved userPhone : {}", saveUser.getUserPhone());
     }
+
+    //회원정보조회
+
+
 }

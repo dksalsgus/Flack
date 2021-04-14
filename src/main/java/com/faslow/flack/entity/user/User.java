@@ -37,4 +37,10 @@ public class User extends BaseTimeEntity {
         this.userPhone = userPhone;
     }
 
+    public void update(String userPw, String userPhone) {
+        this.userPw = userPw;
+        this.userPhone = userPhone;
+    }
+
+
 }
