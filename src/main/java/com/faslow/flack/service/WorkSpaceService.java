@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,4 +21,8 @@ public class WorkSpaceService {
                 new WorkSpace(workSpaceCreateRequest.getWorkspaceName(), workSpaceCreateRequest.getChannelNo(), workSpaceCreateRequest.getWorkspaceRole()));
     }
 
+    public List<WorkSpace> listWorkSpace() {
+        List<WorkSpace> workSpaceList = workSpaceRepository.findAll();
+        return workSpaceList;
+    }
 }

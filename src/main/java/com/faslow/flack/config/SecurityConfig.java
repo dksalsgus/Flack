@@ -11,14 +11,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-        http.formLogin()
-                .usernameParameter("userEmail")
-                .passwordParameter("userPw")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
-                .permitAll();
-
-        http.cors();
 
 @Configuration
 @EnableWebSecurity
@@ -42,6 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
+
+        http.formLogin()
+                .usernameParameter("userEmail")
+                .passwordParameter("userPw")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
+                .permitAll();
 
         http.cors();
 //        http.authorizeRequests()
