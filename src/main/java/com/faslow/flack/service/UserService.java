@@ -7,11 +7,8 @@ import com.faslow.flack.entity.user.User;
 import com.faslow.flack.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -19,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     // 회원가입
@@ -32,11 +29,10 @@ public class UserService {
     }
 
     // 회원정보 조회
-    @Transactional
-    public UserDetailResponse userInfo(Long userNo){
-        User user = userRepository.findById(userNo)
-                .orElseThrow(() -> new IllegalArgumentException("Not Found User"));
-        return new UserDetailResponse(user);
+    public UserDetailResponse userInfo(Long userNo) throws NotFoundException {
+       User user = userRepository.findById(userNo)
+               .orElseThrow(() -> new NotFoundException("Not Found User"));
+       return new UserDetailResponse(user);
     }
 
     // 회원정보 수정
