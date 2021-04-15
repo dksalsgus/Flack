@@ -10,16 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.Assert;
-
-import java.util.List;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -112,16 +104,16 @@ class UserServiceTest {
 
     @Test
     @Order(4)
-    public void 회원탈퇴() throws NotFoundException{
+    public void 회원탈퇴() throws NotFoundException {
         // select
-        Optional<User> user = userRepository.findById(1L);
+        Optional<User> deleteUser = userRepository.findById(1L);
 
-        // user가 존재하면
-        Assert.assertTrue(user.isPresent());
-
-        user.ifPresent(selectUser->{
-            userRepository.delete(selectUser);
+        deleteUser.ifPresent(selectedUser -> {
+            userRepository.delete(selectedUser);
+            log.info("탈퇴 완료된 회원 : " + deleteUser);
         });
+        // ifPresent : 특정 결과를 반환하는 대신 Optional 객체가 감싸고 있는 값이 존재할 경우에만
+        //             실행될 로직을 함수형 인자로 넘긴다.
 
 
     }
