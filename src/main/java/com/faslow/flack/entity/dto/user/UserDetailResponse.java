@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Getter
 @NoArgsConstructor
-public class UserDetailResponse {
+public class UserDetailResponse{
 
     @ApiModelProperty(value = "이메일")
     private String userEmail;
