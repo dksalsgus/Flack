@@ -1,8 +1,10 @@
 package com.faslow.flack.controller;
 
+import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
+import com.faslow.flack.repository.UserRepository;
 import com.faslow.flack.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     // 회원가입
     @PostMapping("/join")
@@ -26,10 +29,18 @@ public class UserController {
         return ResponseEntity.ok(new UserDto(saveUser));
     }
 
-    @PatchMapping("user/{userId}")
-    @ApiOperation(value = "회원 정보 수정")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
-        User updateUser = userService.update(userId, userUpdateRequest);
+    // 회원정보 조회
+    @GetMapping("user/{userNo}")
+    @ApiOperation(value="회원정보 조회")
+    public ResponseEntity<UserDetailResponse> getUser(@PathVariable Long userNo) throws NotFoundException {
+        return ResponseEntity.ok(userService.userInfo(userNo));
+    }
+
+    // 회원정보 수정
+    @PatchMapping("user/{userNo}")
+    @ApiOperation(value = "회원정보 수정")
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long userNo, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
+        User updateUser = userService.update(userNo, userUpdateRequest);
         return ResponseEntity.ok(new UserDto(updateUser));
     }
 

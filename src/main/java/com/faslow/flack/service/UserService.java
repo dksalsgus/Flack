@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // 회원가입
     @Transactional
     public User join(UserDto userDto) {
         User user = userDto.toEntity();
@@ -35,10 +33,4 @@ public class UserService {
             return user;
         }).orElseThrow(() -> new NotFoundException("Not Found User"));
     }
-
-    // 회원정보 조회
-    public String getUserByEmail(){
-        return null;
-    }
-
 }
