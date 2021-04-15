@@ -22,8 +22,7 @@ public class UserService {
     public User join(UserDto userDto) {
         User user = userDto.toEntity();
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-        userRepository.save(user);
-        return new User(user.getUserEmail(), user.getUserPw(), user.getUserPhone());
+        return userRepository.save(new User(user.getUserEmail(), user.getUserPw(), user.getUserPhone()));
     }
 
     @Transactional

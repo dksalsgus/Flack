@@ -1,13 +1,11 @@
 package com.faslow.flack.entity.profile;
 
+import com.faslow.flack.entity.user.User;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -25,9 +23,14 @@ public class Profile {
 
     private String profilePicture;
 
-    public Profile(String profileName, String profileState, String profilePicture) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userNo")
+    private User userNo;
+
+    public Profile(String profileName, String profileState, String profilePicture, User userNo) {
         this.profileName = profileName;
         this.profileState = profileState;
         this.profilePicture = profilePicture;
+        this.userNo = userNo;
     }
 }

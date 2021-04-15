@@ -1,6 +1,7 @@
 package com.faslow.flack.entity.dto.profile;
 
 import com.faslow.flack.entity.profile.Profile;
+import com.faslow.flack.entity.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -24,6 +25,9 @@ public class ProfileDto {
 
     @ApiModelProperty(value = "프로필 사진 경로")
     private String profilePicture;
+
+    @ApiModelProperty(value = "유저")
+    private User userNo;
 
     public ProfileDto(Profile profile) {
         BeanUtils.copyProperties(profile, this);

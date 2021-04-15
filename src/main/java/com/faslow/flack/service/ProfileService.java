@@ -16,7 +16,7 @@ public class ProfileService {
 
     @Transactional
     public Profile createProfile(ProfileDto profileDto) {
-        return profileRepository.save(new Profile(profileDto.getProfileName(), profileDto.getProfileState(), profileDto.getProfilePicture()));
+        return profileRepository.save(new Profile(profileDto.getProfileName(), profileDto.getProfileState(), profileDto.getProfilePicture(), profileDto.getUserNo()));
     }
 
 }
