@@ -1,14 +1,24 @@
 package com.faslow.flack.service;
 
+import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
+import com.faslow.flack.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,8 +30,11 @@ class UserServiceTest {
 
     @Autowired
     UserService userService;
+
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private UserRepository userRepository;
 
     private String userEmail;
     private String userPw;
@@ -57,6 +70,32 @@ class UserServiceTest {
 
     @Test
     @Order(2)
+    public void 회원정보_조회() throws NotFoundException {
+       //given
+       UserDetailResponse userDetailResponse = new UserDetailResponse();
+
+       userDetailResponse.getUserNo();
+       userDetailResponse.getUserPw();
+       userDetailResponse.getUserEmail();
+       userDetailResponse.getUserPhone();
+
+       //when
+       UserDetailResponse userInfo = userService.userInfo(1L);
+
+       //then
+       assertThat(userInfo.getUserNo()).isEqualTo(1l);
+       assertThat(userInfo.getUserPw()).isEqualTo(userDetailResponse.getUserPw());
+       assertThat(userInfo.getUserPhone()).isEqualTo(userDetailResponse.getUserEmail());
+       assertThat(userInfo.getUserPhone()).isEqualTo(userDetailResponse.getUserPhone());
+
+       log.info("get userNo : {}", userInfo.getUserNo());
+       log.info("get UserPw : {}", userInfo.getUserPw());
+       log.info("get UserEmail : {}", userInfo.getUserEmail());
+       log.info("get UserPhone : {}", userInfo.getUserPhone());
+    }
+
+    @Test
+    @Order(3)
     public void 회원정보_수정() throws NotFoundException {
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
         userUpdateRequest.setUserPw("updatePw");
@@ -69,5 +108,21 @@ class UserServiceTest {
         log.info("update UserNo : {}", updateUser.getUserNo());
         log.info("update UserPw : {}", updateUser.getUserPw());
         log.info("update UserPhone : {}", updateUser.getUserPhone());
+    }
+
+    @Test
+    @Order(4)
+    public void 회원탈퇴() throws NotFoundException{
+        // select
+        Optional<User> user = userRepository.findById(1L);
+
+        // user가 존재하면
+        Assert.assertTrue(user.isPresent());
+
+        user.ifPresent(selectUser->{
+            userRepository.delete(selectUser);
+        });
+
+
     }
 }
