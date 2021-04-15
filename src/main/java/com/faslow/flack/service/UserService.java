@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +42,12 @@ public class UserService {
             user.update(userUpdateRequest.getUserPw(), userUpdateRequest.getUserPhone());
             return user;
         }).orElseThrow(() -> new NotFoundException("Not Found User"));
+    }
+
+    // 회원탈퇴
+    @Transactional
+    public void delete(Long userNo) throws NotFoundException{
+        userRepository.deleteById(userNo);
     }
 
 }
