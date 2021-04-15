@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,9 +48,9 @@ public class UserController {
     // 회원탈퇴
     @DeleteMapping("user/{userNo}")
     @ApiOperation(value = "회원탈퇴")
-    public ResponseEntity<UserDto> DeleteUser(@PathVariable Long userNo){
-        return UserService.delete(userNo);
+    public ResponseEntity DeleteUser(@PathVariable Long userNo) throws NotFoundException{
+        userService.delete(userNo);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
-
 
 }
