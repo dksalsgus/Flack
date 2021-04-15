@@ -1,17 +1,15 @@
 package com.faslow.flack.service;
 
+import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
-import com.faslow.flack.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,14 +24,12 @@ class UserServiceTest {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private Long userNo;
     private String userEmail;
     private String userPw;
     private String userPhone;
 
     @BeforeAll
     void setUp() {
-
         userEmail = "doongji.team@gmail.com";
         userPw = "userpw test";
         userPhone = "010-0000-0000";
@@ -62,15 +58,18 @@ class UserServiceTest {
 
     @Test
     @Order(2)
-    public void 회원정보_조회() throws NotFoundException{
-        Optional<User> userInfo = UserRepository.findById(1L);
-            userInfo.ifPresent(selectUser -> {
-               // log.info(selectUser.getUserNo());
-                log.info(selectUser.getUserEmail());
-                log.info(selectUser.getUserPw());
-                log.info(selectUser.getUserPhone());
-        });
+    public void 회원정보_조회() throws NotFoundException {
+       UserDetailResponse userDetailResponse = new UserDetailResponse();
+       userDetailResponse.getUserPw();
+       userDetailResponse.getUserEmail();
+       userDetailResponse.getUserEmail();
+       userDetailResponse.getCreateAt();
+       userDetailResponse.getCreateAt();
 
+       UserDetailResponse getUser = userService.userInfo(1L);
+
+       assertThat(getUser.getUserPw()).isEqualTo(userDetailResponse.getUserPw());
+       assertThat(getUser.getUserPhone()).isEqualTo();
     }
 
     @Test
