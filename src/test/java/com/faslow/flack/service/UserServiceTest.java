@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,8 @@ class UserServiceTest {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private UserRepository userRepository;
 
     private String userEmail;
     private String userPw;
@@ -105,5 +108,21 @@ class UserServiceTest {
         log.info("update UserNo : {}", updateUser.getUserNo());
         log.info("update UserPw : {}", updateUser.getUserPw());
         log.info("update UserPhone : {}", updateUser.getUserPhone());
+    }
+
+    @Test
+    @Order(4)
+    public void 회원탈퇴() throws NotFoundException{
+        // select
+        Optional<User> user = userRepository.findById(1L);
+
+        // user가 존재하면
+        Assert.assertTrue(user.isPresent());
+
+        user.ifPresent(selectUser->{
+            userRepository.delete(selectUser);
+        });
+
+
     }
 }

@@ -29,19 +29,27 @@ public class UserController {
         return ResponseEntity.ok(new UserDto(saveUser));
     }
 
-    // 회원정보 조회
+    // 회원 정보 조회
     @GetMapping("user/{userNo}")
     @ApiOperation(value="회원정보 조회")
     public ResponseEntity<UserDetailResponse> getUser(@PathVariable Long userNo) throws NotFoundException {
         return ResponseEntity.ok(userService.userInfo(userNo));
     }
 
-    // 회원정보 수정
+    // 회원 정보 수정
     @PatchMapping("user/{userNo}")
     @ApiOperation(value = "회원정보 수정")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long userNo, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
         User updateUser = userService.update(userNo, userUpdateRequest);
         return ResponseEntity.ok(new UserDto(updateUser));
     }
+
+    // 회원탈퇴
+    @DeleteMapping("user/{userNo}")
+    @ApiOperation(value = "회원탈퇴")
+    public ResponseEntity<UserDto> DeleteUser(@PathVariable Long userNo){
+        return UserService.delete(userNo);
+    }
+
 
 }
