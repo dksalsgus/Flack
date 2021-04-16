@@ -1,5 +1,6 @@
 spring:
-
+  profiles:
+    include: oauth # oauth2/authorization/google
   #devtools
   devtools:
     restart:
@@ -24,7 +25,6 @@ spring:
       show-sql: true
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
 # server
 server:
   port: 8080
