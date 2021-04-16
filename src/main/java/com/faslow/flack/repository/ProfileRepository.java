@@ -1,6 +1,6 @@
 package com.faslow.flack.repository;
 
-import com.faslow.flack.entity.Profile;
+import com.faslow.flack.entity.profile.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

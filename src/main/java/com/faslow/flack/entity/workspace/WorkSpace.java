@@ -1,17 +1,17 @@
 package com.faslow.flack.entity.workspace;
 
 import com.faslow.flack.entity.BaseTimeEntity;
-import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@ApiModel
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WorkSpace extends BaseTimeEntity {
 
