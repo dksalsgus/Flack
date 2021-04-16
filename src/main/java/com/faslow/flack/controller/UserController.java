@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-
     // 회원가입
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")

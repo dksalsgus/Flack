@@ -1,15 +1,15 @@
 package com.faslow.flack.controller;
 
+import com.faslow.flack.entity.dto.profile.ProfileDetailResponse;
 import com.faslow.flack.entity.dto.profile.ProfileDto;
 import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.service.ProfileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -52,5 +52,12 @@ public class ProfileController {
             e.printStackTrace();
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "프로필 조회")
+    @GetMapping("profile/{profileNo}")
+    public ResponseEntity<ProfileDetailResponse> profileDetails(@PathVariable Long profileNo) throws NotFoundException {
+        Profile profile = profileService.profileDetails(profileNo);
+        return ResponseEntity.ok(new ProfileDetailResponse(profile.getProfileName(), profile.getProfileState(), profile.getProfilePicture()));
     }
 }
