@@ -3,6 +3,7 @@ package com.faslow.flack.entity.profile;
 import com.faslow.flack.entity.user.User;
 import com.sun.istack.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @ToString
+@NoArgsConstructor
 public class Profile {
 
     @Id

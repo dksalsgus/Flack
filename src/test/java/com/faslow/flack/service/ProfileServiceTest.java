@@ -5,10 +5,13 @@ import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.repository.UserRepository;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.transaction.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -66,10 +69,19 @@ public class ProfileServiceTest {
         profileDto.setUserNo(saveUser);
 
         Profile createdProfile = profileService.createProfile(profileDto);
-        log.info("{}",createdProfile.getUserNo());
+        log.info("{}", createdProfile.getUserNo());
 
         assertThat(createdProfile.getProfileNo()).isEqualTo(1);
         assertThat(createdProfile.getProfileName()).isEqualTo(profileName);
         log.info("Created Profile : {}", createdProfile);
+    }
+
+    @Test
+    @Order(2)
+    @Transactional
+    void 프로필_조회() throws NotFoundException {
+        Profile findProfile = profileService.profileDetails(1L);
+        assertThat(findProfile.getUserNo().getUserNo()).isEqualTo(1L);
+        log.info("find Profile : {}", findProfile);
     }
 }
