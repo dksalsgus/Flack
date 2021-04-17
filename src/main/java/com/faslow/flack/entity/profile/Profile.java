@@ -27,12 +27,12 @@ public class Profile {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userNo")
-    private User userNo;
+    private User user;
 
     public Profile(String profileName, String profileState, String profilePicture, User userNo) {
         this.profileName = profileName;
         this.profileState = profileState;
         this.profilePicture = profilePicture;
-        this.userNo = userNo;
+        this.user = userNo;
     }
 }
