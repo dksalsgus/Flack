@@ -15,6 +15,9 @@ public class WorkSpaceService {
 
     private final WorkSpaceRepository workSpaceRepository;
 
+    private final UserWorkSpaceService userWorkSpaceService;
+
+
     @Transactional
     public WorkSpace createWorkSpace(WorkSpaceCreateRequest workSpaceCreateRequest) {
         return workSpaceRepository.save(

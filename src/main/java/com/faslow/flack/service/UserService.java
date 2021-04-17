@@ -16,13 +16,16 @@ import javax.transaction.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserWorkSpaceService userWorkSpaceServic;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public User join(UserDto userDto) {
         User user = userDto.toEntity();
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-        return userRepository.save(new User(user.getUserEmail(), user.getUserPw(), user.getUserPhone()));
+        User saveUser = userRepository.save(new User(user.getUserEmail(), user.getUserPw(), user.getUserPhone()));
+        userWorkSpaceServic.create(saveUser, null); // test
+        return saveUser;
     }
 
     @Transactional
