@@ -1,14 +1,12 @@
 package com.faslow.flack.entity.channel;
 
 import com.faslow.flack.entity.BaseTimeEntity;
+import com.faslow.flack.entity.workspace.WorkSpace;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -24,4 +22,8 @@ public class Channel extends BaseTimeEntity {
     private String channelName;
 
     private String channelInfo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workspaceNo")
+    private WorkSpace workSpace;
 }

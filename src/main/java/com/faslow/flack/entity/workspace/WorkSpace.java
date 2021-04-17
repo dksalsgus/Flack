@@ -1,7 +1,6 @@
 package com.faslow.flack.entity.workspace;
 
 import com.faslow.flack.entity.BaseTimeEntity;
-import com.faslow.flack.entity.channel.Channel;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -28,10 +26,6 @@ public class WorkSpace extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @ColumnDefault("'MEMBER'")
     private enWorkSpaceRole workspaceRole;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "channelNo")
-    private List<Channel> channelList;
 
     public WorkSpace(String workspaceName, int channelNo, enWorkSpaceRole workspaceRole) {
         this.workspaceName = workspaceName;
