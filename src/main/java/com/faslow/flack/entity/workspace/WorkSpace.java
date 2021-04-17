@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,9 +29,9 @@ public class WorkSpace extends BaseTimeEntity {
     @ColumnDefault("'MEMBER'")
     private enWorkSpaceRole workspaceRole;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "channelNo")
-    private Channel channel;
+    private List<Channel> channelList;
 
     public WorkSpace(String workspaceName, int channelNo, enWorkSpaceRole workspaceRole) {
         this.workspaceName = workspaceName;
