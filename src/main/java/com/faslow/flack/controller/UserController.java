@@ -33,4 +33,12 @@ public class UserController {
         return ResponseEntity.ok(new UserDto(updateUser));
     }
 
+    // 회원탈퇴
+    @DeleteMapping("user/{userNo}")
+    @ApiOperation(value = "회원탈퇴")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userNo) throws NotFoundException{
+        userService.delete(userNo);
+        return ResponseEntity.noContent().build();
+    }
+
 }
