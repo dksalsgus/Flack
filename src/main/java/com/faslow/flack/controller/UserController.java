@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
     // 회원가입
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")
@@ -30,6 +31,14 @@ public class UserController {
     public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
         User updateUser = userService.update(userId, userUpdateRequest);
         return ResponseEntity.ok(new UserDto(updateUser));
+    }
+
+    // 회원탈퇴
+    @DeleteMapping("user/{userNo}")
+    @ApiOperation(value = "회원탈퇴")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userNo) throws NotFoundException{
+        userService.delete(userNo);
+        return ResponseEntity.noContent().build();
     }
 
 }
