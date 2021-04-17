@@ -5,11 +5,13 @@ import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor//(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 

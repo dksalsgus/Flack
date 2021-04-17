@@ -34,8 +34,8 @@ class UserServiceTest {
 
     @BeforeAll
     void setUp() {
-        userEmail = "doongji.team@gmail.com";
-        userPw = "userpw test";
+        userEmail = "userEmail";
+        userPw = "userPw";
         userPhone = "010-0000-0000";
     }
 
@@ -55,9 +55,7 @@ class UserServiceTest {
         assertThat(bCryptPasswordEncoder.matches(userPw, saveUser.getUserPw())).isTrue();
         assertThat(userPhone).isEqualTo(saveUser.getUserPhone());
         // 확인
-        log.info("saved userEmail : {}", saveUser.getUserEmail());
-        log.info("saved userPw : {}", saveUser.getUserPw());
-        log.info("saved userPhone : {}", saveUser.getUserPhone());
+        log.info("saved userPhone : {}", saveUser);
     }
 
     @Test
@@ -97,9 +95,7 @@ class UserServiceTest {
         assertThat(updateUser.getUserPw()).isEqualTo(userUpdateRequest.getUserPw());
         assertThat(updateUser.getUserPhone()).isNotEqualTo(this.userPhone);
 
-        log.info("update UserNo : {}", updateUser.getUserNo());
-        log.info("update UserPw : {}", updateUser.getUserPw());
-        log.info("update UserPhone : {}", updateUser.getUserPhone());
+        log.info("update UserPhone : {}", updateUser);
     }
 
     @Test
