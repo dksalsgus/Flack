@@ -25,8 +25,6 @@ class UserServiceTest {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    UserWorkSpaceService userWorkSpaceService;
     private String userEmail;
     private String userPw;
     private String userPhone;
