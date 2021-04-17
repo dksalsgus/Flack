@@ -4,7 +4,6 @@ import com.faslow.flack.entity.UserWorkSpace;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.entity.workspace.WorkSpace;
 import com.faslow.flack.repository.UserWorkRepository;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,4 @@ public class UserWorkSpaceService {
         return userWorkRepository.save(new UserWorkSpace(user, workSpace));
     }
 
-    @Transactional
-    public UserWorkSpace select(Long userWorkNo) throws NotFoundException {
-        return userWorkRepository.findById(userWorkNo).orElseThrow(() -> new NotFoundException("Not found"));
-    }
 }

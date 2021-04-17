@@ -12,15 +12,17 @@ import javax.persistence.*;
 @ToString
 public class UserWorkSpace {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userNo")
-    private final User user;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workspaceNo")
-    private final WorkSpace workSpace;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userWorkNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userNo")
+    private final User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workspaceNo")
+    private final WorkSpace workSpace;
 
     public UserWorkSpace(User user, WorkSpace workSpace) {
         this.user = user;

@@ -56,7 +56,6 @@ class UserServiceTest {
         assertThat(userPhone).isEqualTo(saveUser.getUserPhone());
         // 확인
         log.info("saved userPhone : {}", saveUser);
-        log.info("saved userwork : {}", userWorkSpaceService.select(1L)); //test
 
     }
 
