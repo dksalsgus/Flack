@@ -1,8 +1,10 @@
 package com.faslow.flack.service;
 
+import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
+import com.faslow.flack.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
@@ -22,8 +24,11 @@ class UserServiceTest {
 
     @Autowired
     UserService userService;
+
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private UserRepository userRepository;
 
     private String userEmail;
     private String userPw;
@@ -59,6 +64,32 @@ class UserServiceTest {
 
     @Test
     @Order(2)
+    public void 회원정보_조회() throws NotFoundException {
+       //given
+       UserDetailResponse userDetailResponse = new UserDetailResponse();
+
+       userDetailResponse.getUserNo();
+       userDetailResponse.getUserPw();
+       userDetailResponse.getUserEmail();
+       userDetailResponse.getUserPhone();
+
+       //when
+       UserDetailResponse userInfo = userService.userInfo(1L);
+
+       //then
+       assertThat(userInfo.getUserNo()).isEqualTo(1l);
+       assertThat(userInfo.getUserPw()).isEqualTo(userDetailResponse.getUserPw());
+       assertThat(userInfo.getUserPhone()).isEqualTo(userDetailResponse.getUserEmail());
+       assertThat(userInfo.getUserPhone()).isEqualTo(userDetailResponse.getUserPhone());
+
+       log.info("get userNo : {}", userInfo.getUserNo());
+       log.info("get UserPw : {}", userInfo.getUserPw());
+       log.info("get UserEmail : {}", userInfo.getUserEmail());
+       log.info("get UserPhone : {}", userInfo.getUserPhone());
+    }
+
+    @Test
+    @Order(3)
     public void 회원정보_수정() throws NotFoundException {
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
         userUpdateRequest.setUserPw("updatePw");
@@ -69,5 +100,21 @@ class UserServiceTest {
         assertThat(updateUser.getUserPhone()).isNotEqualTo(this.userPhone);
 
         log.info("update UserPhone : {}", updateUser);
+    }
+
+    @Test
+    @Order(4)
+    public void 회원탈퇴() throws NotFoundException {
+        // select
+        Optional<User> deleteUser = userRepository.findById(1L);
+
+        deleteUser.ifPresent(selectedUser -> {
+            userRepository.delete(selectedUser);
+            log.info("탈퇴 완료된 회원 : " + deleteUser);
+        });
+        // ifPresent : 특정 결과를 반환하는 대신 Optional 객체가 감싸고 있는 값이 존재할 경우에만
+        //             실행될 로직을 함수형 인자로 넘긴다.
+
+
     }
 }
