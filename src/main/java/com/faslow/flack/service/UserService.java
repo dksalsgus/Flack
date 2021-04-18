@@ -29,9 +29,9 @@ public class UserService {
 
     // 회원정보 조회
     public User userInfo(Long userNo) throws NotFoundException {
-       User user = userRepository.findById(userNo)
-               .orElseThrow(() -> new NotFoundException("Not Found User"));
-       return user;
+        User user = userRepository.findById(userNo)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return user;
     }
 
     // 회원정보 수정

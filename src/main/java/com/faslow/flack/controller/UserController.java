@@ -39,8 +39,8 @@ public class UserController {
     @PatchMapping("user/{userNo}")
     @ApiOperation(value = "회원정보 수정")
     public ResponseEntity<UserDetailResponse> getUser(@PathVariable Long userNo) throws NotFoundException {
-        User user = userService.userInfo(userNo);
-        return ResponseEntity.ok(new UserDetailResponse(user));
+        User getUser = userService.userInfo(userNo);
+        return ResponseEntity.ok(new UserDetailResponse(getUser));
     }
 
     // 회원탈퇴
