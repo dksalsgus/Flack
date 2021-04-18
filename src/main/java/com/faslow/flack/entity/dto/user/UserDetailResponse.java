@@ -15,9 +15,6 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 @NoArgsConstructor
 public class UserDetailResponse{
 
-    @ApiModelProperty(value = "회원번호")
-    private Long userNo;
-
     @ApiModelProperty(value = "이메일")
     private String userEmail;
 
@@ -32,13 +29,10 @@ public class UserDetailResponse{
     }
 
     @Builder
-    public UserDetailResponse(Long userNo, String userEmail, String userPw, String userPhone, LocalDateTime createAt, LocalDateTime updateAt) {
-        this.userNo = userNo;
+    public UserDetailResponse(String userEmail, String userPw, String userPhone) {
         this.userEmail = userEmail;
         this.userPw = userPw;
         this.userPhone = userPhone;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
 
     }
 
