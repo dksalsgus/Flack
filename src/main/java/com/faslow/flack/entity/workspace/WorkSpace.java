@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
@@ -21,20 +23,8 @@ public class WorkSpace extends BaseTimeEntity {
 
     private String workspaceName;
 
-    private int channelNo;
-
-    @Enumerated(EnumType.STRING)
-    @ColumnDefault("'MEMBER'")
-    private enWorkSpaceRole workspaceRole;
-
-    public WorkSpace(String workspaceName, int channelNo, enWorkSpaceRole workspaceRole) {
+    public WorkSpace(String workspaceName) {
         this.workspaceName = workspaceName;
-        this.channelNo = channelNo;
-        this.workspaceRole = workspaceRole;
     }
 
-    public enum enWorkSpaceRole {
-        OWNER,
-        MEMBER
-    }
 }

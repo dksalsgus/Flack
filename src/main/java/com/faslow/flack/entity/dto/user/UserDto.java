@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.time.LocalDateTime;
-
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Getter
@@ -25,12 +23,6 @@ public class UserDto {
 
     @ApiModelProperty(value = "휴대폰번호")
     private String userPhone;
-
-    @ApiModelProperty(value = "생성날짜")
-    private LocalDateTime createAt;
-
-    @ApiModelProperty(value = "수정날짜")
-    private LocalDateTime updateAt;
 
     public UserDto(User user) {
         copyProperties(user, this);

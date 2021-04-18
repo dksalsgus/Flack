@@ -21,7 +21,7 @@ public class WorkSpaceService {
     @Transactional
     public WorkSpace createWorkSpace(WorkSpaceCreateRequest workSpaceCreateRequest) {
         return workSpaceRepository.save(
-                new WorkSpace(workSpaceCreateRequest.getWorkspaceName(), workSpaceCreateRequest.getChannelNo(), workSpaceCreateRequest.getWorkspaceRole()));
+                new WorkSpace(workSpaceCreateRequest.getWorkspaceName()));
     }
 
     public List<WorkSpace> listWorkSpace() {

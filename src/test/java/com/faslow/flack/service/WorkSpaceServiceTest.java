@@ -7,7 +7,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -31,7 +30,7 @@ class WorkSpaceServiceTest {
     @Test
     @Order(1)
     void 워크스페이스_생성() {
-        WorkSpaceCreateRequest workspace = new WorkSpaceCreateRequest(this.workspaceName, 0, null, LocalDateTime.now(), LocalDateTime.now());
+        WorkSpaceCreateRequest workspace = new WorkSpaceCreateRequest(this.workspaceName, 0);
         WorkSpace savedWorkSpace = workSpaceService.createWorkSpace(workspace);
         assertThat(savedWorkSpace.getWorkspaceName()).isEqualTo(workspaceName);
         log.info("Created workSpace Name : {}", savedWorkSpace.getWorkspaceName());
