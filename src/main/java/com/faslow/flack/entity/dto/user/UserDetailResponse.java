@@ -27,12 +27,6 @@ public class UserDetailResponse{
     @ApiModelProperty(value = "휴대폰번호")
     private String userPhone;
 
-    @ApiModelProperty(value = "생성날짜")
-    private LocalDateTime createAt;
-
-    @ApiModelProperty(value = "수정날짜")
-    private LocalDateTime updateAt;
-
     public UserDetailResponse(User user) {
         copyProperties(user, this);
     }
