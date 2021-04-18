@@ -1,5 +1,6 @@
 package com.faslow.flack.controller;
 
+import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
@@ -20,17 +21,26 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/join")
-    @ApiOperation(value = "회원 가입")
+    @ApiOperation(value = "회원가입")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         User saveUser = userService.join(userDto);
         return ResponseEntity.ok(new UserDto(saveUser));
     }
 
+    // 회원정보 수정
     @PatchMapping("user/{userId}")
-    @ApiOperation(value = "회원 정보 수정")
+    @ApiOperation(value = "회원정보 수정")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
         User updateUser = userService.update(userId, userUpdateRequest);
         return ResponseEntity.ok(new UserDto(updateUser));
+    }
+
+    // 회원정보 조회
+    @PatchMapping("user/{userNo}")
+    @ApiOperation(value = "회원정보 수정")
+    public ResponseEntity<UserDetailResponse> getUser(@PathVariable Long userNo) throws NotFoundException {
+        User getUser = userService.userInfo(userNo);
+        return ResponseEntity.ok(new UserDetailResponse(getUser));
     }
 
     // 회원탈퇴

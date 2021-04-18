@@ -31,12 +31,14 @@ class UserServiceTest {
 
     private UserRepository userRepository;
 
+    private Long userNo;
     private String userEmail;
     private String userPw;
     private String userPhone;
 
     @BeforeAll
     void setUp() {
+        userNo = 1L;
         userEmail = "userEmail";
         userPw = "userPw";
         userPhone = "010-0000-0000";
@@ -60,33 +62,28 @@ class UserServiceTest {
         assertThat(userPhone).isEqualTo(saveUser.getUserPhone());
         // 확인
         log.info("saved userPhone : {}", saveUser);
-
     }
 
     @Test
     @Order(2)
     public void 회원정보_조회() throws NotFoundException {
-       //given
-       UserDetailResponse userDetailResponse = new UserDetailResponse();
+        // set
+        UserDetailResponse userDetailResponse = new UserDetailResponse();
 
-       userDetailResponse.getUserNo();
-       userDetailResponse.getUserPw();
-       userDetailResponse.getUserEmail();
-       userDetailResponse.getUserPhone();
+        userDetailResponse.setUserPw(userPw);
+        userDetailResponse.setUserPw(userEmail);
+        userDetailResponse.setUserPw(userPhone);
 
-       //when
-       UserDetailResponse userInfo = userService.userInfo(1L);
+        // read
+        User getUser = userService.userInfo(userNo);
 
-       //then
-       assertThat(userInfo.getUserNo()).isEqualTo(1l);
-       assertThat(userInfo.getUserPw()).isEqualTo(userDetailResponse.getUserPw());
-       assertThat(userInfo.getUserPhone()).isEqualTo(userDetailResponse.getUserEmail());
-       assertThat(userInfo.getUserPhone()).isEqualTo(userDetailResponse.getUserPhone());
+        // then
+        assertThat(getUser.getUserNo()).isEqualTo(1L);
+        assertThat(getUser.getUserPw()).isEqualTo(userPw);
+        assertThat(getUser.getUserEmail()).isEqualTo(userEmail);
+        assertThat(getUser.getUserPhone()).isEqualTo(userPhone);
 
-       log.info("get userNo : {}", userInfo.getUserNo());
-       log.info("get UserPw : {}", userInfo.getUserPw());
-       log.info("get UserEmail : {}", userInfo.getUserEmail());
-       log.info("get UserPhone : {}", userInfo.getUserPhone());
+        log.info("select UserInfo : " + getUser);
     }
 
     @Test
@@ -111,11 +108,10 @@ class UserServiceTest {
 
         deleteUser.ifPresent(selectedUser -> {
             userRepository.delete(selectedUser);
-            log.info("탈퇴 완료된 회원 : " + deleteUser);
+            log.info("delete User : " + deleteUser);
         });
         // ifPresent : 특정 결과를 반환하는 대신 Optional 객체가 감싸고 있는 값이 존재할 경우에만
         //             실행될 로직을 함수형 인자로 넘긴다.
-
-
     }
+
 }

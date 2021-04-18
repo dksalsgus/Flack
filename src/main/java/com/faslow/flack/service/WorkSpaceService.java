@@ -5,6 +5,7 @@ import com.faslow.flack.entity.workspace.WorkSpace;
 import com.faslow.flack.repository.WorkSpaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,4 +29,5 @@ public class WorkSpaceService {
         List<WorkSpace> workSpaceList = workSpaceRepository.findAll();
         return workSpaceList;
     }
+
 }
