@@ -16,10 +16,13 @@ public class WorkSpaceService {
 
     private final WorkSpaceRepository workSpaceRepository;
 
+    private final UserWorkSpaceService userWorkSpaceService;
+
+
     @Transactional
     public WorkSpace createWorkSpace(WorkSpaceCreateRequest workSpaceCreateRequest) {
         return workSpaceRepository.save(
-                new WorkSpace(workSpaceCreateRequest.getWorkspaceName(), workSpaceCreateRequest.getChannelNo(), workSpaceCreateRequest.getWorkspaceRole()));
+                new WorkSpace(workSpaceCreateRequest.getWorkspaceName()));
     }
 
     public List<WorkSpace> listWorkSpace() {

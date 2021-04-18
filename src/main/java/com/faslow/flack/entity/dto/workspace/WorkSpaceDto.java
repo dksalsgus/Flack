@@ -18,8 +18,6 @@ public class WorkSpaceDto {
     @ApiModelProperty(value = "채널")
     private int channelNo;
 
-    @ApiModelProperty(value = "권한")
-    private WorkSpace.enWorkSpaceRole workspaceRole;
 
     public WorkSpaceDto(WorkSpace workSpace) {
         BeanUtils.copyProperties(workSpace, this);

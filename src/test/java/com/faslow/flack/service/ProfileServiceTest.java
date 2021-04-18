@@ -69,7 +69,7 @@ public class ProfileServiceTest {
         profileDto.setUserNo(saveUser);
 
         Profile createdProfile = profileService.createProfile(profileDto);
-        log.info("{}", createdProfile.getUserNo());
+        log.info("{}", createdProfile.getUser());
 
         assertThat(createdProfile.getProfileNo()).isEqualTo(1);
         assertThat(createdProfile.getProfileName()).isEqualTo(profileName);
@@ -81,7 +81,7 @@ public class ProfileServiceTest {
     @Transactional
     void 프로필_조회() throws NotFoundException {
         Profile findProfile = profileService.profileDetails(1L);
-        assertThat(findProfile.getUserNo().getUserNo()).isEqualTo(1L);
+        assertThat(findProfile.getUser().getUserNo()).isEqualTo(1L);
         log.info("find Profile : {}", findProfile);
     }
 }

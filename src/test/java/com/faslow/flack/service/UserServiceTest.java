@@ -11,7 +11,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.transaction.Transactional;
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -41,6 +44,7 @@ class UserServiceTest {
 
     @Test
     @Order(1)
+    @Transactional
     public void 회원가입() throws Exception {
         // 웹 Input값(DTO) Setup
         UserDto userDto = new UserDto();
@@ -56,6 +60,7 @@ class UserServiceTest {
         assertThat(userPhone).isEqualTo(saveUser.getUserPhone());
         // 확인
         log.info("saved userPhone : {}", saveUser);
+
     }
 
     @Test
