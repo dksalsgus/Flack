@@ -30,10 +30,11 @@ public class WorkSpaceService {
     }
 
     @Transactional
-    public void deleteWorkSpace(Long workspaceNo){
+    public WorkSpace deleteWorkSpace(Long workspaceNo){
         WorkSpace workSpace = workSpaceRepository.findById(workspaceNo)
                 .orElseThrow(() -> new IllegalArgumentException("Not Found WorkSpace" + workspaceNo));
         workSpaceRepository.delete(workSpace);
+        return workSpace;
     }
 
 }
