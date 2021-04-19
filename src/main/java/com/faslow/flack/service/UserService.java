@@ -1,6 +1,5 @@
 package com.faslow.flack.service;
 
-import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
@@ -9,6 +8,7 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 
 
@@ -16,14 +16,14 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     // 회원가입
     @Transactional
     public User join(UserDto userDto) {
+//        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         User user = userDto.toEntity();
-        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         return userRepository.save(new User(user.getUserEmail(), user.getUserPw(), user.getUserPhone()));
     }
 
@@ -45,7 +45,7 @@ public class UserService {
 
     // 회원탈퇴
     @Transactional
-    public void delete(Long userNo) throws NotFoundException{
+    public void delete(Long userNo) throws NotFoundException {
         userRepository.deleteById(userNo);
     }
 
