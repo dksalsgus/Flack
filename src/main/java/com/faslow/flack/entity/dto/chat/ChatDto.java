@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class ChatDto {
     private Profile profile;
 
     @ApiModelProperty(value = "채팅 보낸 시간")
-    private String createAt;
+    private LocalDateTime createAt;
 
     @ApiModelProperty(value = "채팅 속한 채널")
     private Channel channel;

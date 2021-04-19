@@ -10,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -29,7 +30,7 @@ public class Chat {
     private Profile profile;
 
     @CreationTimestamp
-    private String createAt;
+    private LocalDateTime createAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "channelNo")
