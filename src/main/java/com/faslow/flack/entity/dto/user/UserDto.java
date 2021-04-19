@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
@@ -39,7 +38,7 @@ public class UserDto {
     public User toEntity() {
         return User.builder()
                 .userEmail(userEmail)
-                .userPw(new BCryptPasswordEncoder().encode(userPw))
+                .userPw(userPw)
                 .userPhone(userPhone)
                 .build();
     }

@@ -22,7 +22,7 @@ public class UserService {
     // 회원가입
     @Transactional
     public User join(UserDto userDto) {
-        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
+//        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         User user = userDto.toEntity();
         return userRepository.save(new User(user.getUserEmail(), user.getUserPw(), user.getUserPhone()));
     }
