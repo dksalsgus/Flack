@@ -32,15 +32,15 @@ public class UserController {
     }
 
     // 회원정보 수정
-    @PatchMapping("user/{userId}")
+    @PatchMapping("user/{userNo}")
     @ApiOperation(value = "회원정보 수정")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
-        User updateUser = userService.update(userId, userUpdateRequest);
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long userNo, @RequestBody UserUpdateRequest userUpdateRequest) throws NotFoundException {
+        User updateUser = userService.update(userNo, userUpdateRequest);
         return ResponseEntity.ok(new UserDto(updateUser));
     }
 
     // 회원정보 조회
-    @PatchMapping("user/{userNo}")
+    @GetMapping("user/{userNo}")
     @ApiOperation(value = "회원정보 수정")
     public ResponseEntity<UserDetailResponse> getUser(@PathVariable Long userNo) throws NotFoundException {
         User getUser = userService.userInfo(userNo);
