@@ -4,6 +4,7 @@ import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateResponse;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceDto;
 import com.faslow.flack.entity.workspace.WorkSpace;
+import com.faslow.flack.repository.WorkSpaceRepository;
 import com.faslow.flack.service.WorkSpaceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,4 +41,10 @@ public class WorkSpaceController {
         return ResponseEntity.ok(dtoList);
     }
 
+    @ApiOperation(value = "워크스페이스 삭제")
+    @DeleteMapping("workspace")
+    public ResponseEntity<Void> deleteWorkSpace(@PathVariable Long workspaceNo){
+        workSpaceService.deleteWorkSpace(workspaceNo);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -5,7 +5,6 @@ import com.faslow.flack.entity.workspace.WorkSpace;
 import com.faslow.flack.repository.WorkSpaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,6 +27,14 @@ public class WorkSpaceService {
     public List<WorkSpace> listWorkSpace() {
         List<WorkSpace> workSpaceList = workSpaceRepository.findAll();
         return workSpaceList;
+    }
+
+    @Transactional
+    public WorkSpace deleteWorkSpace(Long workspaceNo){
+        WorkSpace workSpace = workSpaceRepository.findById(workspaceNo)
+                .orElseThrow(() -> new IllegalArgumentException("Not Found WorkSpace" + workspaceNo));
+        workSpaceRepository.delete(workSpace);
+        return workSpace;
     }
 
 }
