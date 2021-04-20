@@ -14,11 +14,10 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greeting")
-    public ResponseEntity<Chat> chat(Chat chat) throws InterruptedException {
+    @MessageMapping("/pub") // 발행경로 /app/pub
+    @SendTo("/topic/test") // 구독경로
+    public ResponseEntity<Chat> chat(Chat chat) {
         Chat newChat = chatService.chatSave(chat);
-        Thread.sleep(1000);
         return ResponseEntity.ok(newChat);
     }
 }
