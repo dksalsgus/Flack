@@ -5,6 +5,7 @@ import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.repository.ProfileRepository;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

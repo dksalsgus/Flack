@@ -22,7 +22,6 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-
     @ApiOperation(value = "프로필 등록")
     @PostMapping("profile")
     public ResponseEntity<ProfileDto> registerProfile(String profileName, String profileState, @RequestParam("profilePicture") MultipartFile profilePicture) throws IOException {
@@ -60,4 +59,5 @@ public class ProfileController {
         Profile profile = profileService.profileDetails(profileNo);
         return ResponseEntity.ok(new ProfileDetailResponse(profile.getProfileName(), profile.getProfileState(), profile.getProfilePicture()));
     }
+
 }

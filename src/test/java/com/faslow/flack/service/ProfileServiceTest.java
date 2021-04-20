@@ -84,4 +84,5 @@ public class ProfileServiceTest {
         assertThat(findProfile.getUser().getUserNo()).isEqualTo(1L);
         log.info("find Profile : {}", findProfile);
     }
+
 }
