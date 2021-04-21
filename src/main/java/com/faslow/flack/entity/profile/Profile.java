@@ -27,7 +27,7 @@ public class Profile {
 
     private String profilePicture;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userNo")
     private User user;
 
@@ -35,7 +35,7 @@ public class Profile {
     @ColumnDefault(value = "'MEMBER'")
     private enRole workspaceRole;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workspaceNo")
     private WorkSpace workSpace;
 

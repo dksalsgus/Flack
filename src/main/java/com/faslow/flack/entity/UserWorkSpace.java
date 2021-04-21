@@ -19,11 +19,11 @@ public class UserWorkSpace {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userWorkNo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userNo")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workspaceNo")
     private WorkSpace workSpace;
 

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -73,6 +74,7 @@ public class ProfileServiceTest {
 
     @Test
     @Order(2)
+    @Transactional
     void 프로필_조회() throws NotFoundException {
         Profile findProfile = profileService.profileDetails(1L);
         assertThat(findProfile.getUser().getUserNo()).isEqualTo(1L);
