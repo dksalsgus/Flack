@@ -3,7 +3,6 @@ package com.faslow.flack.controller;
 import com.faslow.flack.entity.dto.profile.ProfileDetailResponse;
 import com.faslow.flack.entity.dto.profile.ProfileDto;
 import com.faslow.flack.entity.dto.profile.ProfileUpdateRequest;
-import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.service.ProfileService;
 import io.swagger.annotations.Api;
@@ -68,5 +67,5 @@ public class ProfileController {
         Profile updateProfile = profileService.updateProfile(profileNo, profileUpdateRequest);
         return ResponseEntity.ok(new ProfileDto(updateProfile));
     }
-    
+
 }
