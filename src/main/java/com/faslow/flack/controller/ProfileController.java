@@ -61,8 +61,8 @@ public class ProfileController {
         return ResponseEntity.ok(new ProfileDetailResponse(profile.getProfileName(), profile.getProfileState(), profile.getProfilePicture()));
     }
 
-    @ApiOperation(value = "프로필 편집")
-    @PutMapping("profile/{profileNo}")
+    @ApiOperation(value = "프로필 수정")
+    @PatchMapping("profile/{profileNo}")
     public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest) throws NotFoundException{
         Profile updateProfile = profileService.updateProfile(profileNo, profileUpdateRequest);
         return ResponseEntity.ok(new ProfileDto(updateProfile));
