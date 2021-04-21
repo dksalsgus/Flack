@@ -23,7 +23,7 @@ public class Channel extends BaseTimeEntity {
 
     private String channelInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workspaceNo")
     private WorkSpace workSpace;
 }
