@@ -1,15 +1,17 @@
 package com.faslow.flack.controller;
 
+import com.faslow.flack.config.principal.UserPrincipal;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateResponse;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceDto;
 import com.faslow.flack.entity.workspace.WorkSpace;
-import com.faslow.flack.repository.WorkSpaceRepository;
 import com.faslow.flack.service.WorkSpaceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,8 +26,8 @@ public class WorkSpaceController {
 
     @ApiOperation(value = "워크 스페이스 생성")
     @PostMapping("workspace")
-    public ResponseEntity<WorkSpaceCreateResponse> createWorkSpace(@RequestBody WorkSpaceCreateRequest workSpaceCreateRequest) {
-        WorkSpace saveWorkSpace = workSpaceService.createWorkSpace(workSpaceCreateRequest);
+    public ResponseEntity<WorkSpaceCreateResponse> createWorkSpace(@AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody WorkSpaceCreateRequest workSpaceCreateRequest) throws NotFoundException {
+        WorkSpace saveWorkSpace = workSpaceService.createWorkSpace(userPrincipal.getUsername(), workSpaceCreateRequest);
         return ResponseEntity.ok(new WorkSpaceCreateResponse(saveWorkSpace));
     }
 
@@ -43,7 +45,7 @@ public class WorkSpaceController {
 
     @ApiOperation(value = "워크스페이스 삭제")
     @DeleteMapping("workspace")
-    public ResponseEntity<Void> deleteWorkSpace(@PathVariable Long workspaceNo){
+    public ResponseEntity<Void> deleteWorkSpace(@PathVariable Long workspaceNo) {
         workSpaceService.deleteWorkSpace(workspaceNo);
         return ResponseEntity.noContent().build();
     }

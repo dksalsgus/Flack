@@ -25,14 +25,14 @@ public class Chat {
     @NotNull
     private String chatMsg;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profileNo")
     private Profile profile;
 
     @CreationTimestamp
     private LocalDateTime createAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "channelNo")
     private Channel channel;
 

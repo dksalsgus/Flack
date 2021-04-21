@@ -2,7 +2,9 @@ package com.faslow.flack.entity;
 
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.entity.workspace.WorkSpace;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserWorkSpace {
 
     @Id
@@ -18,11 +21,11 @@ public class UserWorkSpace {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userNo")
-    private final User user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workspaceNo")
-    private final WorkSpace workSpace;
+    private WorkSpace workSpace;
 
     public UserWorkSpace(User user, WorkSpace workSpace) {
         this.user = user;

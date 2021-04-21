@@ -2,7 +2,6 @@ package com.faslow.flack.controller;
 
 import com.faslow.flack.entity.dto.profile.ProfileDetailResponse;
 import com.faslow.flack.entity.dto.profile.ProfileDto;
-import com.faslow.flack.entity.dto.profile.ProfileUpdateRequest;
 import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.service.ProfileService;
 import io.swagger.annotations.Api;
@@ -22,6 +21,7 @@ import java.io.IOException;
 public class ProfileController {
 
     private final ProfileService profileService;
+
 
     @ApiOperation(value = "프로필 등록")
     @PostMapping("profile")
@@ -60,12 +60,4 @@ public class ProfileController {
         Profile profile = profileService.profileDetails(profileNo);
         return ResponseEntity.ok(new ProfileDetailResponse(profile.getProfileName(), profile.getProfileState(), profile.getProfilePicture()));
     }
-
-    @ApiOperation(value = "프로필 수정")
-    @PatchMapping("profile/{profileNo}")
-    public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest) throws NotFoundException{
-        Profile updateProfile = profileService.updateProfile(profileNo, profileUpdateRequest);
-        return ResponseEntity.ok(new ProfileDto(updateProfile));
-    }
-
 }
