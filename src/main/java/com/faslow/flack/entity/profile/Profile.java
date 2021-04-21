@@ -35,7 +35,7 @@ public class Profile {
     @ColumnDefault(value = "'MEMBER'")
     private enRole workspaceRole;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workspaceNo")
     private WorkSpace workSpace;
 

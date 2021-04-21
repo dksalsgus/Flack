@@ -49,7 +49,7 @@ class WorkSpaceServiceTest {
     @Test
     @Order(1)
     void 워크스페이스_생성() throws NotFoundException {
-        WorkSpaceCreateRequest workspace = new WorkSpaceCreateRequest(this.workspaceName, 0);
+        WorkSpaceCreateRequest workspace = new WorkSpaceCreateRequest(this.workspaceName);
         WorkSpace savedWorkSpace = workSpaceService.createWorkSpace("userEmail", workspace);
         assertThat(savedWorkSpace.getWorkspaceName()).isEqualTo(workspaceName);
         log.info("Created workSpace Name : {}", savedWorkSpace);

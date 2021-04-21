@@ -13,7 +13,4 @@ public class WorkSpaceCreateRequest {
     @ApiModelProperty(value = "워크 스페이스 이름")
     private String workspaceName;
 
-    @ApiModelProperty(value = "채널 번호")
-    private int channelNo;
-
 }
