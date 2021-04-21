@@ -8,9 +8,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 @ApiModel(value = "프로필 편집")
-@AllArgsConstructor
 public class ProfileUpdateRequest {
 
     @ApiModelProperty(value = "프로필 이름")
