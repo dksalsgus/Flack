@@ -1,14 +1,17 @@
 package com.faslow.flack.controller;
 
+import com.faslow.flack.config.principal.UserPrincipal;
 import com.faslow.flack.entity.dto.profile.ProfileDetailResponse;
 import com.faslow.flack.entity.dto.profile.ProfileDto;
 import com.faslow.flack.entity.profile.Profile;
+import com.faslow.flack.repository.WorkSpaceRepository;
 import com.faslow.flack.service.ProfileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,10 +25,17 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
+    private final WorkSpaceRepository workSpaceRepository;
+
 
     @ApiOperation(value = "프로필 등록")
-    @PostMapping("profile")
-    public ResponseEntity<ProfileDto> registerProfile(String profileName, String profileState, @RequestParam("profilePicture") MultipartFile profilePicture) throws IOException {
+    @PostMapping("{workspaceNo}}/profile")
+    public ResponseEntity<ProfileDto>
+    registerProfile(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                    @PathVariable Long workspaceNo,
+                    String profileName,
+                    String profileState,
+                    @RequestParam("profilePicture") MultipartFile profilePicture) throws IOException {
         try {
             String origFilename = profilePicture.getOriginalFilename();
             String filename = "_" + origFilename;
@@ -46,7 +56,7 @@ public class ProfileController {
             profileDto.setProfileName(profileName);
             profileDto.setProfileState(profileState);
             profileDto.setProfilePicture(filePath);
-            Profile savedProfile = profileService.createProfile(profileDto);
+            Profile savedProfile = profileService.createProfile(userPrincipal.getUsername(), workspaceNo, profileDto);
             return ResponseEntity.ok(new ProfileDto(savedProfile));
         } catch (Exception e) {
             e.printStackTrace();
