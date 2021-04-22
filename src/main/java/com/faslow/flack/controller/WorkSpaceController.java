@@ -4,6 +4,7 @@ import com.faslow.flack.config.principal.UserPrincipal;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateResponse;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceDto;
+import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.entity.workspace.WorkSpace;
 import com.faslow.flack.service.WorkSpaceService;
 import io.swagger.annotations.Api;
