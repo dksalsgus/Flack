@@ -27,7 +27,7 @@ public class ProfileController {
 
 
     @ApiOperation(value = "프로필 등록")
-    @PostMapping("profile")
+    @PostMapping("{workspaceNo}/profile")
     public ResponseEntity<ProfileDto> registerProfile(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                                       @PathVariable Long workspaceNo, String profileName, String profileState, @RequestParam("profilePicture") MultipartFile profilePicture) throws IOException {
         try {
@@ -59,7 +59,7 @@ public class ProfileController {
     }
 
     @ApiOperation(value = "프로필 조회")
-    @GetMapping("profile/{profileNo}")
+    @GetMapping("/profile/{profileNo}")
     public ResponseEntity<ProfileDetailResponse> profileDetails(@PathVariable Long profileNo) throws NotFoundException {
         Profile profile = profileService.profileDetails(profileNo);
         return ResponseEntity.ok(new ProfileDetailResponse(profile.getProfileName(), profile.getProfileState(), profile.getProfilePicture()));
@@ -67,7 +67,7 @@ public class ProfileController {
 
     @ApiOperation(value = "프로필 수정")
     @PatchMapping("profile/{profileNo}")
-    public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest) throws NotFoundException{
+    public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest) throws NotFoundException {
         Profile updateProfile = profileService.updateProfile(profileNo, profileUpdateRequest);
         return ResponseEntity.ok(new ProfileDto(updateProfile));
     }
