@@ -1,12 +1,15 @@
 package com.faslow.flack.service;
 
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
+import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.entity.workspace.WorkSpace;
+import com.faslow.flack.repository.ProfileRepository;
 import com.faslow.flack.repository.UserRepository;
 import com.faslow.flack.repository.WorkSpaceRepository;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,8 @@ public class WorkSpaceService {
     private final UserWorkSpaceService userWorkSpaceService;
 
     private final UserRepository userRepository;
+
+    private final ProfileRepository profileRepository;
 
 
     @Transactional(readOnly = true)
@@ -40,11 +45,13 @@ public class WorkSpaceService {
     }
 
     @Transactional(readOnly = true)
-    public WorkSpace deleteWorkSpace(Long workspaceNo) {
-        WorkSpace workSpace = workSpaceRepository.findById(workspaceNo)
-                .orElseThrow(() -> new IllegalArgumentException("Not Found WorkSpace" + workspaceNo));
-        workSpaceRepository.delete(workSpace);
-        return workSpace;
+    public void deleteWorkSpace(Long workspaceNo, Long profileNo) throws NotFoundException {
+        try {
+            workSpaceRepository.deleteById(workspaceNo);
+            profileRepository.deleteById(profileNo);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundException(e.getMessage());
+        }
     }
 
 }
