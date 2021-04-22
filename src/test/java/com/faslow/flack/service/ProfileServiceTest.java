@@ -1,6 +1,7 @@
 package com.faslow.flack.service;
 
 import com.faslow.flack.entity.dto.profile.ProfileDto;
+import com.faslow.flack.entity.dto.profile.ProfileUpdateRequest;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.entity.profile.Profile;
@@ -74,10 +75,27 @@ public class ProfileServiceTest {
 
     @Test
     @Order(2)
-    @Transactional
     void 프로필_조회() throws NotFoundException {
         Profile findProfile = profileService.profileDetails(1L);
         assertThat(findProfile.getUser().getUserNo()).isEqualTo(1L);
         log.info("find Profile : {}", findProfile);
     }
+
+    @Test
+    @Order(3)
+    void 프로필_수정() throws NotFoundException {
+        ProfileUpdateRequest profileUpdateRequest = new ProfileUpdateRequest();
+
+        profileUpdateRequest.setProfileName(profileName);
+        profileUpdateRequest.setProfileState(profileState);
+        profileUpdateRequest.setProfilePicture(profilePicture);
+
+        Profile updateProfile = profileService.updateProfile(1L, profileUpdateRequest);
+        assertThat(updateProfile.getProfileNo()).isEqualTo(1L);
+        assertThat(updateProfile.getProfileState()).isEqualTo(profileUpdateRequest.getProfileState());
+        assertThat(updateProfile.getProfilePicture()).isEqualTo(profileUpdateRequest.getProfilePicture());
+
+        log.info("update Profile : {}", updateProfile);
+    }
+
 }

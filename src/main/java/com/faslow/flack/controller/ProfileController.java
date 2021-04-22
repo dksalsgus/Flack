@@ -3,8 +3,8 @@ package com.faslow.flack.controller;
 import com.faslow.flack.config.principal.UserPrincipal;
 import com.faslow.flack.entity.dto.profile.ProfileDetailResponse;
 import com.faslow.flack.entity.dto.profile.ProfileDto;
+import com.faslow.flack.entity.dto.profile.ProfileUpdateRequest;
 import com.faslow.flack.entity.profile.Profile;
-import com.faslow.flack.repository.WorkSpaceRepository;
 import com.faslow.flack.service.ProfileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,17 +25,11 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-    private final WorkSpaceRepository workSpaceRepository;
-
 
     @ApiOperation(value = "프로필 등록")
-    @PostMapping("{workspaceNo}}/profile")
-    public ResponseEntity<ProfileDto>
-    registerProfile(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                    @PathVariable Long workspaceNo,
-                    String profileName,
-                    String profileState,
-                    @RequestParam("profilePicture") MultipartFile profilePicture) throws IOException {
+    @PostMapping("profile")
+    public ResponseEntity<ProfileDto> registerProfile(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                                      @PathVariable Long workspaceNo, String profileName, String profileState, @RequestParam("profilePicture") MultipartFile profilePicture) throws IOException {
         try {
             String origFilename = profilePicture.getOriginalFilename();
             String filename = "_" + origFilename;
@@ -70,4 +64,12 @@ public class ProfileController {
         Profile profile = profileService.profileDetails(profileNo);
         return ResponseEntity.ok(new ProfileDetailResponse(profile.getProfileName(), profile.getProfileState(), profile.getProfilePicture()));
     }
+
+    @ApiOperation(value = "프로필 수정")
+    @PatchMapping("profile/{profileNo}")
+    public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest) throws NotFoundException{
+        Profile updateProfile = profileService.updateProfile(profileNo, profileUpdateRequest);
+        return ResponseEntity.ok(new ProfileDto(updateProfile));
+    }
+
 }

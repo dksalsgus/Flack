@@ -3,6 +3,7 @@ package com.faslow.flack.entity.profile;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.entity.workspace.WorkSpace;
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -39,6 +40,7 @@ public class Profile {
     @JoinColumn(name = "workspaceNo")
     private WorkSpace workSpace;
 
+    @Builder
     public Profile(String profileName, String profileState, String profilePicture, User userNo, enRole workspaceRole, WorkSpace workSpace) {
         this.profileName = profileName;
         this.profileState = profileState;
@@ -48,8 +50,17 @@ public class Profile {
         this.workSpace = workSpace;
     }
 
+    public Profile update(String profileName, String profileState, String profilePicture) {
+        this.profileName = profileName;
+        this.profileState = profileState;
+        this.profilePicture = profilePicture;
+        return this;
+    }
+
     public enum enRole {
         OWNER,
         MEMBER
     }
+
+
 }

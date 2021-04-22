@@ -1,6 +1,7 @@
 package com.faslow.flack.service;
 
 import com.faslow.flack.entity.dto.profile.ProfileDto;
+import com.faslow.flack.entity.dto.profile.ProfileUpdateRequest;
 import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.entity.workspace.WorkSpace;
@@ -40,6 +41,13 @@ public class ProfileService {
     @Transactional(readOnly = true)
     public Profile profileDetails(Long profileNo) throws NotFoundException {
         return profileRepository.findById(profileNo).orElseThrow(() -> new NotFoundException("Not Found Profile"));
+    }
+
+    @Transactional
+    public Profile updateProfile(Long profileNo, ProfileUpdateRequest profileUpdateRequest) throws  NotFoundException{
+        Profile profile = profileRepository.findById(profileNo).orElseThrow(() -> new NotFoundException("Not Found Profile"));
+        profile.update(profileUpdateRequest.getProfileName(), profileUpdateRequest.getProfileState(), profileUpdateRequest.getProfileState());
+        return profile;
     }
 
 }
