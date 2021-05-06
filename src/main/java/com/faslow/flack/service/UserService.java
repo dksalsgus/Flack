@@ -49,4 +49,13 @@ public class UserService {
         userRepository.deleteById(userNo);
     }
 
+    public User login(String userEmail, String userPw) throws NotFoundException {
+        User findUser = userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        if (findUser != null) {
+            boolean isPwMatch = passwordEncoder.matches(userPw, findUser.getUserPw());
+            if (isPwMatch) return findUser;
+        }
+        return null;
+    }
 }
