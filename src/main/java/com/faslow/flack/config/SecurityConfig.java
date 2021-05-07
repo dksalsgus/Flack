@@ -42,12 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
 
-        http.formLogin()
-                .usernameParameter("userEmail")
-                .passwordParameter("userPw")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
-                .permitAll();
+        http.httpBasic().disable();
+
+//                .usernameParameter("userEmail")
+//                .passwordParameter("userPw")
+//                .loginProcessingUrl("/login")
+//                .defaultSuccessUrl("/")
+//                .permitAll();
 
         http.oauth2Login()
                 .userInfoEndpoint()
