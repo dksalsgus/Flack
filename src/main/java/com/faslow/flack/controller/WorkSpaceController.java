@@ -46,8 +46,8 @@ public class WorkSpaceController {
 
     @ApiOperation(value = "워크스페이스 삭제")
     @DeleteMapping("workspace")
-    public ResponseEntity<Void> deleteWorkSpace(@PathVariable Long workspaceNo, @PathVariable Long profileNo) throws NotFoundException {
-        workSpaceService.deleteWorkSpace(workspaceNo, profileNo);
+    public ResponseEntity<Void> deleteWorkSpace(@PathVariable Long workspaceNo) throws NotFoundException {
+        workSpaceService.deleteWorkSpace(workspaceNo);
         return ResponseEntity.noContent().build();
     }
 
