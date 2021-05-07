@@ -46,8 +46,12 @@ public class ProfileService {
     @Transactional
     public Profile updateProfile(Long profileNo, ProfileUpdateRequest profileUpdateRequest) throws  NotFoundException{
         Profile profile = profileRepository.findById(profileNo).orElseThrow(() -> new NotFoundException("Not Found Profile"));
-        profile.update(profileUpdateRequest.getProfileName(), profileUpdateRequest.getProfileState(), profileUpdateRequest.getProfileState());
+        profile.update(profileUpdateRequest.getProfileName(), profileUpdateRequest.getProfileState(), profileUpdateRequest.getProfilePicture());
         return profile;
     }
 
+    @Transactional(readOnly = true)
+    public void deleteProfile(Long profileNo) throws NotFoundException {
+       profileRepository.deleteById(profileNo);
+    }
 }
