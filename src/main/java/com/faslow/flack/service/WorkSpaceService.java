@@ -45,10 +45,9 @@ public class WorkSpaceService {
     }
 
     @Transactional(readOnly = true)
-    public void deleteWorkSpace(Long workspaceNo, Long profileNo) throws NotFoundException {
+    public void deleteWorkSpace(Long workspaceNo) throws NotFoundException {
         try {
             workSpaceRepository.deleteById(workspaceNo);
-            profileRepository.deleteById(profileNo);
         } catch (EmptyResultDataAccessException e) {
             throw new NotFoundException(e.getMessage());
         }
