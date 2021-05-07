@@ -5,12 +5,15 @@ import com.faslow.flack.entity.dto.profile.ProfileUpdateRequest;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
 import com.faslow.flack.entity.profile.Profile;
+import com.faslow.flack.repository.ProfileRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -29,6 +32,8 @@ public class ProfileServiceTest {
     @Autowired
     WorkSpaceService workSpaceService;
 
+    @Autowired
+    ProfileRepository profileRepository;
 
     private String userEmail;
     private String userPw;
@@ -96,6 +101,16 @@ public class ProfileServiceTest {
         assertThat(updateProfile.getProfilePicture()).isEqualTo(profileUpdateRequest.getProfilePicture());
 
         log.info("update Profile : {}", updateProfile);
+    }
+
+    @Test
+    @Order(4)
+    void 프로필_삭제() throws NotFoundException {
+        Optional<Profile> deleteProfile = profileRepository.findById(1L);
+        profileService.deleteProfile(deleteProfile.get().getProfileNo());
+
+        assertThat(deleteProfile.get().getProfileNo()).isEqualTo(1L);
+        log.info("Deleted WorkSpace : {}", deleteProfile);
     }
 
 }
