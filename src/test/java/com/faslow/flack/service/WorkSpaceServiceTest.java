@@ -2,8 +2,10 @@ package com.faslow.flack.service;
 
 import com.faslow.flack.entity.UserWorkSpace;
 import com.faslow.flack.entity.dto.workspace.WorkSpaceCreateRequest;
+import com.faslow.flack.entity.profile.Profile;
 import com.faslow.flack.entity.user.User;
 import com.faslow.flack.entity.workspace.WorkSpace;
+import com.faslow.flack.repository.ProfileRepository;
 import com.faslow.flack.repository.UserRepository;
 import com.faslow.flack.repository.UserWorkRepository;
 import com.faslow.flack.repository.WorkSpaceRepository;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -35,12 +38,19 @@ class WorkSpaceServiceTest {
     @Autowired
     UserWorkRepository userWorkRepository;
 
+    @Autowired
+    ProfileRepository profileRepository;
+
     private String workspaceName;
+    private String profileName;
     private Long workspaceNo;
+    private Long profileNo;
 
 
     @BeforeAll
     void setUp() {
+        profileNo = 1L;
+        profileName = "flack";
         workspaceNo = 1L;
         workspaceName = "faslow";
         userRepository.save(new User("userEmail", "userPw", "010-1234-1234"));
@@ -67,11 +77,12 @@ class WorkSpaceServiceTest {
 
     @Test
     @Order(3)
-    void 워크스페이스_삭제() {
-        userWorkRepository.deleteById(1L);
-        WorkSpace workSpace = workSpaceService.deleteWorkSpace(workspaceNo);
-        assertThat(workSpace.getWorkspaceName()).isEqualTo("faslow"); // findById의 결과라 Null이 아님
-        log.info("Deleted WorkSpace : ", workSpace);
+    void 워크스페이스_삭제() throws NotFoundException {
+        Optional<WorkSpace> deleteWorkSpace = workSpaceRepository.findById(workspaceNo);
+        workSpaceService.deleteWorkSpace(workspaceNo);
+
+        assertThat(deleteWorkSpace.get().getWorkspaceName()).isEqualTo("faslow");
+        log.info("Deleted WorkSpace {}: ", deleteWorkSpace);
     }
 
 }

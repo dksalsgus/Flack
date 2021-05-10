@@ -4,6 +4,7 @@ import com.faslow.flack.entity.dto.user.UserDetailResponse;
 import com.faslow.flack.entity.dto.user.UserDto;
 import com.faslow.flack.entity.dto.user.UserUpdateRequest;
 import com.faslow.flack.entity.user.User;
+import com.faslow.flack.service.ProfileService;
 import com.faslow.flack.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
+    private final ProfileService profileService;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -50,8 +53,9 @@ public class UserController {
     // 회원탈퇴
     @DeleteMapping("user/{userNo}")
     @ApiOperation(value = "회원탈퇴")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userNo) throws NotFoundException {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userNo, @PathVariable Long profileNo) throws NotFoundException {
         userService.delete(userNo);
+        profileService.deleteProfile(profileNo);
         return ResponseEntity.noContent().build();
     }
 

@@ -67,9 +67,31 @@ public class ProfileController {
 
     @ApiOperation(value = "프로필 수정")
     @PatchMapping("profile/{profileNo}")
-    public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest) throws NotFoundException {
+    public ResponseEntity<ProfileDto> updateProfile(@PathVariable Long profileNo, @RequestBody ProfileUpdateRequest profileUpdateRequest, @RequestParam("profilePicture") MultipartFile profilePicture) throws NotFoundException {
+         try {
+             String origFilename = profilePicture.getOriginalFilename();
+             String filename = "_" + origFilename;
+             String savePath = System.getProperty("user.dir") + "\\flackProfileImg";
+
+             if (profilePicture.getName() != null) { // 프로필 이미지가 있을 경우
+                File file = new File(savePath + "\\" + filename); // 경로 + 프로필 이미지명 불러옴
+                file.delete(); // 기존 이미지 삭제
+            }
+            profilePicture.transferTo(new File(savePath + "\\" + filename));  // 설정한 경로에 업로드
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Profile updateProfile = profileService.updateProfile(profileNo, profileUpdateRequest);
         return ResponseEntity.ok(new ProfileDto(updateProfile));
+    }
+
+    @ApiOperation(value = "프로필 삭제")
+    @DeleteMapping("profile/{profileNo}")
+    public ResponseEntity<?> deleteProfile(@PathVariable Long profileNo) throws NotFoundException {
+        profileService.deleteProfile(profileNo);
+        return ResponseEntity.noContent().build();
     }
 
 }
