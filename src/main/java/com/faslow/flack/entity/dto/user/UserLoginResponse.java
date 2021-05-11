@@ -15,8 +15,8 @@ import java.util.List;
 @ApiModel(value = "로그인 응답")
 public class UserLoginResponse {
 
-    @ApiModelProperty(value = "이메일")
-    private String userEmail;
+    @ApiModelProperty(value = "토큰")
+    private String jwtToken;
 
     @ApiModelProperty(value = "워크스페이스 리스트")
     private List<WorkSpace> workSpaceList;

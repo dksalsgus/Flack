@@ -1,14 +1,19 @@
 package com.faslow.flack.config;
 
+import com.faslow.flack.config.jwt.JwtAuthenticationFilter;
+import com.faslow.flack.config.jwt.JwtProvider;
 import com.faslow.flack.config.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,31 +28,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
+    private final JwtProvider jwtProvider;
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // h2 설정
-        http.csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/h2-console/**")
-                .permitAll();
+//        http.csrf().disable()
+//                .headers().frameOptions().disable()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/h2-console/**")
+//                .permitAll();
+//
+//        http.authorizeRequests()//보호된 리소스 URI에 접근할 수 K있는 권한을 설정
+//                .antMatchers("/workspace/**").authenticated()
+//                .antMatchers("/user/**").authenticated()
+//                .anyRequest().permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/");
 
-        http.authorizeRequests()//보호된 리소스 URI에 접근할 수 K있는 권한을 설정
-                .antMatchers("/workspace/**").authenticated()
-                .antMatchers("/user/**").authenticated()
-                .anyRequest().permitAll()
+        http.csrf().disable().httpBasic().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/");
-
-//        http.httpBasic().disable();
-        http.formLogin()
-                .usernameParameter("userEmail")
-                .passwordParameter("userPw")
-                .loginProcessingUrl("/login")
-                .permitAll();
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
+                        UsernamePasswordAuthenticationFilter.class);
 
         http.oauth2Login()
                 .userInfoEndpoint()
